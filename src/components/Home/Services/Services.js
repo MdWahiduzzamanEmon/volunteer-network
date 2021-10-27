@@ -1,7 +1,8 @@
 import React from 'react';
 import { FormControl, InputGroup, Button, Row } from "react-bootstrap";
+import { toast } from 'react-toastify';
 import Service from '../Service/Service';
-
+toast.configure();
 const Services = () => {
 
     const [services, setServices] = React.useState([]);
@@ -28,7 +29,7 @@ const Services = () => {
             );
             setSearchValue(s);
         } else {
-            alert("no event found")
+            toast.error("Type event name to search")
         }
        
     };
