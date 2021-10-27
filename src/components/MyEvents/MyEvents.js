@@ -19,18 +19,22 @@ const MyEvents = () => {
     const handleEventCancel = (id) => {
         const singleEvent = events.find(event => event._id === id)
         // console.log(singleEvent);
-        fetch(`http://localhost:5000/eventDelete/${id}`, {
-          method: "DELETE",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(singleEvent),
-        }).then(res=>res.json())
-            .then(data => {
-                if (data.deletedCount === 1) {
-                    const restItem = events.filter(event => event._id !== id);
-                    setEvents(restItem);
-                    toast.success("Event deleted successfully")
-                }
-            })
+        fetch(
+          `https://floating-plateau-03198.herokuapp.com/eventDelete/${id}`,
+          {
+            method: "DELETE",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(singleEvent),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount === 1) {
+              const restItem = events.filter((event) => event._id !== id);
+              setEvents(restItem);
+              toast.success("Event deleted successfully");
+            }
+          });
     }
     
     return (
