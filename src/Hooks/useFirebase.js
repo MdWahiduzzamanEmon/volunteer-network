@@ -14,47 +14,46 @@ const provider = new GoogleAuthProvider();
 
 const useFirebase = () => {
 
-    const [user, setUser] = React.useState({});
+  const [user, setUser] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
     const auth = getAuth();
 
 
-    const googleSign = () => { 
-        signInWithPopup(auth, provider)
-          .then((result) => {
-           
-              const user = result.user;
-              setUser(user);
-            // ...
-          })
-          .catch((error) => {
-            toast.error(error.message);
-          });
+  const googleSign = () => {
+      setLoading(true)
+       return signInWithPopup(auth, provider)
+          
     }
 
-     React.useEffect(() => {
+  React.useEffect(() => {
+       setLoading(true)
        const unsubscribe = onAuthStateChanged(auth, (user) => {
          if (user) {
            setUser(user);
          } else {
            setUser({});
          }
+         setLoading(false)
        });
        return unsubscribe;
      }, []);
 //signout 
 
   const logout = () => {
-    const auth = getAuth();
+  setLoading(true)
     signOut(auth)
       .then(() => {
         setUser({});
+        
       })
-      
+      setLoading(false);
   }
     return {
       googleSign,
+      setUser,
       user,
       logout,
+      loading,
     };
 };
 
