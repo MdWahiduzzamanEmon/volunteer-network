@@ -7,7 +7,8 @@ const Services = () => {
 
     const [services, setServices] = React.useState([]);
     const [SearchText, setSearchText] = React.useState("");
-    const [searchValue, setSearchValue] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState([]);
+  
     React.useEffect(() => {
         fetch("https://floating-plateau-03198.herokuapp.com/services")
           .then((res) => res.json())

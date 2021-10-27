@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Services from '../Home/Services/Services';
 import Login from '../Form/Login/Login';
 import Register from '../Form/Register/Register';
+import VolunteerRegister from '../Form/VolunteerRegister/VolunteerRegister';
 const Routing = () => {
     return (
       <div>
@@ -21,6 +22,9 @@ const Routing = () => {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/service/:ServiceId">
+              <VolunteerRegister />
             </Route>
           </Switch>
         </Router>

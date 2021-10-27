@@ -1,0 +1,9 @@
+form input,Controller{
+    padding: 10px 10px;
+    margin: 5px 0px;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom: 1px solid gray;
+    outline: none;
+}

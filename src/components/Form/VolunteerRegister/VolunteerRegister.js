@@ -1,0 +1,64 @@
+import React, { useEffect, useState } from 'react';
+import { useForm } from "react-hook-form";
+import logo from '../../../logos/Group 1329.png'
+import { useParams } from "react-router-dom";
+import './VolunteerRegister.css'
+import useAuth from '../../../Hooks/useAuth';
+
+
+const VolunteerRegister = () => {
+    const { ServiceId } = useParams()
+    const [singleService, setSingleService] = useState({})
+    const {user }=useAuth();
+
+    useEffect(() => {
+        fetch(
+          `https://floating-plateau-03198.herokuapp.com/services/${ServiceId}`
+        ).then(res => res.json()).then(data => {
+            console.log(data);
+            setSingleService(data)
+        })
+    },[])
+
+
+    console.log(ServiceId);
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        data["Full-Name"] = user.displayName;
+        data["Email"] = user.email;
+        data["service Name"] = singleService.workName;
+        console.log(data);
+    }
+    return (
+      <div className="py-5 my-5">
+        <div>
+          <img src={logo} alt="" className="img-fluid w-25" />
+        </div>
+        <div className="w-50 border border-3 mx-auto mt-5">
+          <h4 className="fw-bold pt-4">Register as a Volunteer</h4>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="d-flex flex-column w-50 mx-auto my-4 pb-4"
+          >
+            <input {...register("Full-Name")} value={user.displayName} />
+            <input {...register("Email")} value={user.email} />
+            <input
+              {...register("Date")}
+             type="date"
+            />
+            
+
+            
+            <input {...register("Description")} placeholder="Description..." />
+            <input
+              {...register("service Name")}
+              value={singleService.workName}
+            />
+            <button className="btn btn-danger my-4">Register</button>
+          </form>
+        </div>
+      </div>
+    );
+};
+
+export default VolunteerRegister;

@@ -50,7 +50,7 @@ const Header = () => {
                   )}
                 </div>
                 {user.uid&&<button className=" btn" onClick={logout}>
-                  <i class="fas fs-5 fa-sign-out-alt"></i>
+                  <i className="fas fs-5 fa-sign-out-alt"></i>
                 </button>}
                 <Nav.Link eventKey={2} href="#memes">
                   <button className="btn btn-secondary fw-bold">Admin</button>
