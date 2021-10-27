@@ -5,6 +5,7 @@ import {
   getAuth,
   signInWithPopup,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { toast} from "react-toastify"
 initializeFirebase()
@@ -40,10 +41,20 @@ const useFirebase = () => {
        });
        return unsubscribe;
      }, []);
+//signout 
 
+  const logout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        setUser({});
+      })
+      
+  }
     return {
       googleSign,
       user,
+      logout,
     };
 };
 
