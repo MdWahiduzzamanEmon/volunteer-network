@@ -5,6 +5,8 @@ import Services from '../Home/Services/Services';
 import Login from '../Form/Login/Login';
 import Register from '../Form/Register/Register';
 import VolunteerRegister from '../Form/VolunteerRegister/VolunteerRegister';
+import PrivateRoute from '../Private/PrivateRoute';
+import MyEvents from '../MyEvents/MyEvents'
 const Routing = () => {
     return (
       <div>
@@ -23,9 +25,12 @@ const Routing = () => {
             <Route path="/register">
               <Register />
             </Route>
-            <Route path="/service/:ServiceId">
+            <PrivateRoute path="/service/:ServiceId">
               <VolunteerRegister />
-            </Route>
+            </PrivateRoute>
+            <PrivateRoute path="/myevents">
+              <MyEvents />
+            </PrivateRoute>
           </Switch>
         </Router>
       </div>

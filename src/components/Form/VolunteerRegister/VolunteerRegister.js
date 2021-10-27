@@ -4,6 +4,7 @@ import logo from '../../../logos/Group 1329.png'
 import { useParams } from "react-router-dom";
 import './VolunteerRegister.css'
 import useAuth from '../../../Hooks/useAuth';
+import { toast } from 'react-toastify';
 
 
 const VolunteerRegister = () => {
@@ -22,12 +23,27 @@ const VolunteerRegister = () => {
 
 
     console.log(ServiceId);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit,reset } = useForm();
     const onSubmit = (data) => {
-        data["Full-Name"] = user.displayName;
-        data["Email"] = user.email;
-        data["service Name"] = singleService.workName;
+        data["Full_Name"] = user?.displayName;
+        data["Email"] = user?.email;
+        data["service_Name"] = singleService?.workName;
+        data["img"] = singleService?.img;
         console.log(data);
+
+        fetch("https://floating-plateau-03198.herokuapp.com/v_register", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+              console.log(data);
+              if (data.insertedId) {
+                  toast.success("As a volunteer registration successfull!");
+                  reset();
+              }
+          });
     }
     return (
       <div className="py-5 my-5">
@@ -40,18 +56,13 @@ const VolunteerRegister = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="d-flex flex-column w-50 mx-auto my-4 pb-4"
           >
-            <input {...register("Full-Name")} value={user.displayName} />
+            <input {...register("Full_Name")} value={user.displayName} />
             <input {...register("Email")} value={user.email} />
-            <input
-              {...register("Date")}
-             type="date"
-            />
-            
+            <input {...register("Date")} type="date" />
 
-            
             <input {...register("Description")} placeholder="Description..." />
             <input
-              {...register("service Name")}
+              {...register("service_Name")}
               value={singleService.workName}
             />
             <button className="btn btn-danger my-4">Register</button>

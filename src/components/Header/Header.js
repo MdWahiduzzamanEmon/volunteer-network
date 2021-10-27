@@ -23,7 +23,11 @@ const Header = () => {
                 >
                   Home
                 </Nav.Link>
-                <Nav.Link href="#pricing" className="fw-bold text-dark mx-3">
+                <Nav.Link
+                  as={Link}
+                  to="/myevents"
+                  className="fw-bold text-dark mx-3"
+                >
                   My Events
                 </Nav.Link>
                 <Nav.Link href="#pricing" className="fw-bold text-dark mx-3">
@@ -49,9 +53,11 @@ const Header = () => {
                     />
                   )}
                 </div>
-                {user.uid&&<button className=" btn" onClick={logout}>
-                  <i className="fas fs-5 fa-sign-out-alt"></i>
-                </button>}
+                {user.uid && (
+                  <button className=" btn" onClick={logout}>
+                    <i className="fas fs-5 fa-sign-out-alt"></i>
+                  </button>
+                )}
                 <Nav.Link eventKey={2} href="#memes">
                   <button className="btn btn-secondary fw-bold">Admin</button>
                 </Nav.Link>
