@@ -2,25 +2,32 @@ import React from 'react';
 import { FormControl, InputGroup, Button, Row } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import Service from '../Service/Service';
+import { Spinner } from "react-bootstrap";
 toast.configure();
 const Services = () => {
 
     const [services, setServices] = React.useState([]);
     const [SearchText, setSearchText] = React.useState("");
   const [searchValue, setSearchValue] = React.useState([]);
-  
-    React.useEffect(() => {
+  const [isSpinner, setIsSpinner] = React.useState(true);
+  React.useEffect(() => {
+    setIsSpinner(true);
+      setTimeout(() => {
         fetch("https://floating-plateau-03198.herokuapp.com/services")
           .then((res) => res.json())
           .then((data) => {
             // console.log(data);
-              setServices(data)
-              setSearchValue(data);
+            setServices(data);
+            setSearchValue(data);
+            setIsSpinner(false);
           });
+      }, );
+        
     },[])
     const handleSearch = (e) => {
-        const searchText = e.target.value;
-        setSearchText(searchText);
+      const searchText = e.target.value;
+      setSearchText(searchText);
+      // console.log(e);
     }
     const handleToSearchButton = () => {
         // console.log(SearchText);
@@ -46,6 +53,11 @@ const Services = () => {
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               onChange={handleSearch}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleToSearchButton();
+                }
+              }}
             />
             <Button
               variant="secondary"
@@ -57,12 +69,15 @@ const Services = () => {
           </InputGroup>
         </section>
         <section>
-          <Row xs={1} md={3} lg={4} className="g-4 py-5">
-            {searchValue?.map((service) => (
-              <Service key={service._id} service={service}></Service>
-            ))}
-          </Row>
-          
+          {isSpinner ? (
+            <Spinner animation="grow" variant="danger" />
+          ) : (
+            <Row xs={1} md={3} lg={4} className="g-4 py-5">
+              {searchValue?.map((service) => (
+                <Service key={service._id} service={service}></Service>
+              ))}
+            </Row>
+          )}
         </section>
       </div>
     );

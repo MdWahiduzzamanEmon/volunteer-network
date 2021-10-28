@@ -1,30 +1,33 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from "react-router-dom";
 import useAuth from '../../Hooks/useAuth';
 import logo from '../../logos/Group 1329.png'
 const Header = () => {
   const { user, logout } = useAuth();
   // console.log(user);
+  // const activeStyle = {
+  //   color:"blue"
+  // }
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" fixed="top" className="bg-light">
           <Container>
-            <Link to="/home" className="w-25">
+            <Link to="/" className="w-25">
               <img src={logo} alt="" className="w-50" />
             </Link>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ms-auto">
                 <Nav.Link
-                  as={Link}
+                  as={NavLink}
                   to="/home"
                   className="fw-bold text-dark mx-3"
                 >
                   Home
                 </Nav.Link>
                 <Nav.Link
-                  as={Link}
+                  as={NavLink}
                   to="/myevents"
                   className="fw-bold text-dark mx-3"
                 >
@@ -49,7 +52,7 @@ const Header = () => {
                     <img
                       src={user?.photoURL}
                       alt=""
-                      className="w-50 rounded-circle"
+                      className="w-50 d-none d-lg-block rounded-circle mx-auto"
                     />
                   )}
                 </div>
@@ -58,7 +61,7 @@ const Header = () => {
                     <i className="fas fs-5 fa-sign-out-alt"></i>
                   </button>
                 )}
-                <Nav.Link eventKey={2} href="#memes">
+                <Nav.Link as={ Link} to ="/admin">
                   <button className="btn btn-secondary fw-bold">Admin</button>
                 </Nav.Link>
               </Nav>

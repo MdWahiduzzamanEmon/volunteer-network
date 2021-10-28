@@ -7,3 +7,11 @@ form input,Controller{
     border-bottom: 1px solid gray;
     outline: none;
 }
+
+.card{
+    border-top-right-radius:13px ;
+    border-top-left-radius: 13px;
+    width: 250px;
+    height: 380px;
+    margin: 0 auto;
+}

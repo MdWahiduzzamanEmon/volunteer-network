@@ -7,6 +7,7 @@ import Register from '../Form/Register/Register';
 import VolunteerRegister from '../Form/VolunteerRegister/VolunteerRegister';
 import PrivateRoute from '../Private/PrivateRoute';
 import MyEvents from '../MyEvents/MyEvents'
+import Admin from '../Admin/Admin';
 const Routing = () => {
     return (
       <div>
@@ -30,6 +31,9 @@ const Routing = () => {
             </PrivateRoute>
             <PrivateRoute path="/myevents">
               <MyEvents />
+            </PrivateRoute>
+            <PrivateRoute path="/admin">
+              <Admin />
             </PrivateRoute>
           </Switch>
         </Router>
