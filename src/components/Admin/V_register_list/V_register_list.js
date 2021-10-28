@@ -19,18 +19,22 @@ const V_register_list = () => {
 },[])
     const handleMemberDelete = (id) => {
       const singleMember = members.find((member) => member._id === id);
-      // console.log(singleMember);
-      fetch(`https://floating-plateau-03198.herokuapp.com/eventDelete/${id}`, {
-        method: "DELETE",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(singleMember),
-      })
+      console.log(singleMember);
+      fetch(
+        `https://floating-plateau-03198.herokuapp.com/volunteerDelete/${id}`,
+        {
+          method: "DELETE",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(singleMember),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           if (data.deletedCount === 1) {
-              const restItem = members.filter((member) => member._id !== id);
-              setMembers(restItem);
-              toast.success("Member deleted successfully");
+            const restItem = members.filter((member) => member._id !== id);
+            setMembers(restItem);
+            toast.success("Member deleted successfully");
           }
         });
     }
