@@ -10,6 +10,7 @@ import MyEvents from '../MyEvents/MyEvents'
 import Admin from '../Admin/Admin';
 import Blog from '../Blog/Blog';
 import Footer from '../Footer/Footer';
+import Error from '../Error/Error';
 const Routing = () => {
     return (
       <div>
@@ -40,8 +41,11 @@ const Routing = () => {
             <PrivateRoute path="/admin">
               <Admin />
             </PrivateRoute>
+            <Route path="*">
+              <Error />
+            </Route>
           </Switch>
-          <Footer/>
+          <Footer />
         </Router>
       </div>
     );
