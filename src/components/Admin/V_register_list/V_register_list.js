@@ -2,42 +2,55 @@ import React, { useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import { Spinner } from "react-bootstrap";
 import { toast } from 'react-toastify';
+import swal from "sweetalert";
+
 const V_register_list = () => {
-    const [members, setMembers] = React.useState([])
-    const [isSpinner,setIsSpinner]=React.useState(true)
-    useEffect(() => {
-        setIsSpinner(true);
+  const [members, setMembers] = React.useState([])
+  const [isSpinner, setIsSpinner] = React.useState(true)
+  useEffect(() => {
+    setIsSpinner(true);
     setTimeout(() => {
-        fetch("https://floating-plateau-03198.herokuapp.com/members")
-          .then((res) => res.json())
-          .then((data) => {
-            // console.log(data);
-            setMembers(data);
-            setIsSpinner(false);
-          });
-    });
-},[])
-    const handleMemberDelete = (id) => {
-      const singleMember = members.find((member) => member._id === id);
-      console.log(singleMember);
-      fetch(
-        `https://floating-plateau-03198.herokuapp.com/volunteerDelete/${id}`,
-        {
-          method: "DELETE",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(singleMember),
-        }
-      )
+      fetch("https://floating-plateau-03198.herokuapp.com/members")
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          if (data.deletedCount === 1) {
-            const restItem = members.filter((member) => member._id !== id);
-            setMembers(restItem);
-            toast.success("Member deleted successfully");
-          }
+          // console.log(data);
+          setMembers(data);
+          setIsSpinner(false);
         });
-    }
+    });
+  }, [])
+  const handleMemberDelete = (id) => {
+    const singleMember = members.find((member) => member._id === id);
+    // console.log(singleMember);
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(
+          `https://floating-plateau-03198.herokuapp.com/volunteerDelete/${id}`,
+          {
+            method: "DELETE",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(singleMember),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.deletedCount === 1) {
+              const restItem = members.filter((member) => member._id !== id);
+              setMembers(restItem);
+              toast.success("Member deleted successfully");
+            }
+          });
+      }
+      
+    })
+  }
     return (
       <div className="my-5">
         {isSpinner ? (

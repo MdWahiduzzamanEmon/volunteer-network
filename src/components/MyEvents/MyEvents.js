@@ -3,44 +3,59 @@ import { Card } from "react-bootstrap";
 import useAuth from '../../Hooks/useAuth';
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
+import swal from "sweetalert";
 
 const MyEvents = () => {
-    const { user } = useAuth();
+  const { user } = useAuth();
   const [events, setEvents] = useState([]);
-  const [isSpinner,setIsSpinner]=useState(true)
+  const [isSpinner, setIsSpinner] = useState(true)
   React.useEffect(() => {
-      setIsSpinner(true);
-       setTimeout(() => {
-          fetch(
-            `https://floating-plateau-03198.herokuapp.com/events/${user.email}`
-          )
-            .then((res) => res.json())
-            .then((data) => {
-              // console.log(data);
-              setEvents(data);
-              setIsSpinner(false);
-            });
-       }, );
-    }, [])
-    const handleEventCancel = (id) => {
-        const singleEvent = events.find(event => event._id === id)
-        // console.log(singleEvent);
-        fetch(
-          `https://floating-plateau-03198.herokuapp.com/eventDelete/${id}`,
-          {
-            method: "DELETE",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(singleEvent),
+    setIsSpinner(true);
+    setTimeout(() => {
+      fetch(
+        `https://floating-plateau-03198.herokuapp.com/events/${user.email}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          setEvents(data);
+          setIsSpinner(false);
+        });
+    });
+  }, [])
+  const handleEventCancel = (id) => {
+    const singleEvent = events.find((event) => event._id === id);
+      swal({
+         title: "Are you sure?",
+         text: "Once deleted, you will not be able to recover this!",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+           
+            // console.log(singleEvent);
+            fetch(
+              `https://floating-plateau-03198.herokuapp.com/eventDelete/${id}`,
+              {
+                method: "DELETE",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(singleEvent),
+              }
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                if (data.deletedCount === 1) {
+                  const restItem = events.filter((event) => event._id !== id);
+                  setEvents(restItem);
+                  toast.success("Event deleted successfully");
+                }
+              });
           }
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount === 1) {
-              const restItem = events.filter((event) => event._id !== id);
-              setEvents(restItem);
-              toast.success("Event deleted successfully");
-            }
-          });
+
+        })
+    
     }
     
     return (

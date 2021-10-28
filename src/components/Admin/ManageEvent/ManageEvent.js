@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { Spinner } from "react-bootstrap";
+import swal from "sweetalert";
 const ManageEvent = () => {
     const [services, setServices] = React.useState([]);
    const [isSpinner, setIsSpinner] = React.useState(true);
@@ -18,20 +19,36 @@ const ManageEvent = () => {
      });
    }, []);
     const handleEventDelete = (id) => {
-        const singleEvent = services.find(service => service._id === id);
-        fetch(`https://floating-plateau-03198.herokuapp.com/eventDelete/${id}`, {
-          method: "DELETE",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(singleEvent),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-              if (data.deletedCount === 1) {
-                  const restEvents = services.filter(service => service._id !== id);
-                  toast.success('Event deleted successfully!!')
-                    setServices(restEvents);
+      const singleEvent = services.find(service => service._id === id);
+       swal({
+         title: "Are you sure?",
+         text: "Once deleted, you will not be able to recover this!",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+       }).then((willDelete) => {
+         if (willDelete) {
+            fetch(
+              `https://floating-plateau-03198.herokuapp.com/eventDelete/${id}`,
+              {
+                method: "DELETE",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(singleEvent),
               }
-          });
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.deletedCount === 1) {
+                  const restEvents = services.filter(
+                    (service) => service._id !== id
+                  );
+                  toast.success("Event deleted successfully!!");
+                  setServices(restEvents);
+                }
+              });
+         }
+       })
+       
     }
     return (
       <div className="py-4">
