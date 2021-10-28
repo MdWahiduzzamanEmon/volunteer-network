@@ -3,6 +3,7 @@ import { FormControl, InputGroup, Button, Row } from "react-bootstrap";
 import { toast } from 'react-toastify';
 import Service from '../Service/Service';
 import { Spinner } from "react-bootstrap";
+import bg from '../../../logos/website-background-texture-10-920x518.jpg'
 toast.configure();
 const Services = () => {
 
@@ -42,43 +43,54 @@ const Services = () => {
        
     };
     return (
-      <div className="pt-4 container">
-        <section className="pt-5 mt-5">
-          <h2 className="fw-bold text-uppercase">
-            I grow by helping people in need.
-          </h2>
-          <InputGroup className="mb-3 w-50 py-4 mx-auto">
-            <FormControl
-              placeholder="Search...."
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              onChange={handleSearch}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleToSearchButton();
-                }
-              }}
-            />
-            <Button
-              variant="secondary"
-              id="button-addon2"
-              onClick={handleToSearchButton}
-            >
-              Search
-            </Button>
-          </InputGroup>
-        </section>
-        <section>
-          {isSpinner ? (
-            <Spinner animation="grow" variant="danger" />
-          ) : (
-            <Row xs={1} md={3} lg={4} className="g-4 py-5">
-              {searchValue?.map((service) => (
-                <Service key={service._id} service={service}></Service>
-              ))}
-            </Row>
-          )}
-        </section>
+      <div
+        style={{
+          backgroundImage: `url(${bg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          ObjectFit: "cover",
+        }}
+      >
+        <div className="pt-4 container">
+          <section className="pt-5 mt-5">
+            <h2 className="fw-bold text-uppercase">
+              I grow by helping people in need.
+            </h2>
+            <InputGroup className="mb-3 w-50 py-4 mx-auto">
+              <FormControl
+                placeholder="Search...."
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                onChange={handleSearch}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleToSearchButton();
+                  }
+                }}
+              />
+              <Button
+                variant="secondary"
+                id="button-addon2"
+                onClick={handleToSearchButton}
+              >
+                Search
+              </Button>
+            </InputGroup>
+          </section>
+          <section
+            
+          >
+            {isSpinner ? (
+              <Spinner animation="grow" variant="danger" />
+            ) : (
+              <Row xs={1} md={3} lg={4} className="g-4 py-5">
+                {searchValue?.map((service) => (
+                  <Service key={service._id} service={service}></Service>
+                ))}
+              </Row>
+            )}
+          </section>
+        </div>
       </div>
     );
 };

@@ -1,22 +1,39 @@
 import React, { useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import { Spinner } from "react-bootstrap";
+import { toast } from 'react-toastify';
 const V_register_list = () => {
     const [members, setMembers] = React.useState([])
     const [isSpinner,setIsSpinner]=React.useState(true)
     useEffect(() => {
         setIsSpinner(true);
     setTimeout(() => {
-        fetch("http://localhost:5000/members")
+        fetch("https://floating-plateau-03198.herokuapp.com/members")
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
-              setMembers(data);
-              setIsSpinner(false);
+            setMembers(data);
+            setIsSpinner(false);
           });
     });
 },[])
-
+    const handleMemberDelete = (id) => {
+      const singleMember = members.find((member) => member._id === id);
+      console.log(singleMember);
+      fetch(`https://floating-plateau-03198.herokuapp.com/eventDelete/${id}`, {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(singleMember),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount === 1) {
+              const restItem = members.filter((member) => member._id !== id);
+              setMembers(restItem);
+              toast.success("Member deleted successfully");
+          }
+        });
+    }
     return (
       <div>
         {isSpinner ? (
@@ -37,12 +54,19 @@ const V_register_list = () => {
               </thead>
               <tbody>
                 {members?.map((member) => (
-                  <tr>
+                  <tr key={member?._id}>
                     <td>{member?.Full_Name}</td>
                     <td>{member?.Email}</td>
                     <td>{member?.Date}</td>
                     <td>{member?.service_Name}</td>
-                    <td>delete</td>
+                    <td className="  text-center">
+                      <button
+                        className=" btn text-danger"
+                        onClick={() => handleMemberDelete(member?._id)}
+                      >
+                        <i className="fas fa-trash"></i>
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

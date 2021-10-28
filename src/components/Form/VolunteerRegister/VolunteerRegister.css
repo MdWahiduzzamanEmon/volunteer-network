@@ -1,4 +1,4 @@
-form input,Controller{
+.v_register input{
     padding: 10px 10px;
     margin: 5px 0px;
     border-top:none;
@@ -14,4 +14,20 @@ form input,Controller{
     width: 250px;
     height: 380px;
     margin: 0 auto;
+}
+
+.eventaddForm input,textarea{
+    padding: 10px;
+    width: 400px;
+    margin: 10px 0px;
+}
+.selected{
+    color:rgb(12, 160, 160);
+}
+.card-img{
+    height: 296px;
+    width: 250px;
+    object-fit: cover;
+    border-top-right-radius:13px ;
+    border-top-left-radius: 13px;
 }

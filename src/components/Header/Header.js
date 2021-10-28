@@ -5,10 +5,7 @@ import useAuth from '../../Hooks/useAuth';
 import logo from '../../logos/Group 1329.png'
 const Header = () => {
   const { user, logout } = useAuth();
-  // console.log(user);
-  // const activeStyle = {
-  //   color:"blue"
-  // }
+  const admin = "wahedemon09@gmail.com";
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" fixed="top" className="bg-light">
@@ -21,19 +18,35 @@ const Header = () => {
               <Nav className="ms-auto">
                 <Nav.Link
                   as={NavLink}
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "rgb(12, 160, 160)",
+                  }}
                   to="/home"
-                  className="fw-bold text-dark mx-3"
+                  className="fw-bold mx-3"
                 >
                   Home
                 </Nav.Link>
                 <Nav.Link
                   as={NavLink}
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "rgb(12, 160, 160)",
+                  }}
                   to="/myevents"
-                  className="fw-bold text-dark mx-3"
+                  className="fw-bold mx-3"
                 >
                   My Events
                 </Nav.Link>
-                <Nav.Link href="#pricing" className="fw-bold text-dark mx-3">
+                <Nav.Link
+                  as={NavLink}
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "rgb(12, 160, 160)",
+                  }}
+                  to="/blog"
+                  className="fw-bold  mx-3"
+                >
                   Blog
                 </Nav.Link>
               </Nav>
@@ -61,9 +74,11 @@ const Header = () => {
                     <i className="fas fs-5 fa-sign-out-alt"></i>
                   </button>
                 )}
-                <Nav.Link as={ Link} to ="/admin">
-                  <button className="btn btn-secondary fw-bold">Admin</button>
-                </Nav.Link>
+                {user.email === admin && (
+                  <Nav.Link as={Link} to="/admin">
+                    <button className="btn btn-secondary fw-bold">Admin</button>
+                  </Nav.Link>
+                )}
               </Nav>
             </Navbar.Collapse>
           </Container>

@@ -54,13 +54,13 @@ const VolunteerRegister = () => {
           <h4 className="fw-bold pt-4">Register as a Volunteer</h4>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="d-flex flex-column w-50 mx-auto my-4 pb-4"
+            className="d-flex flex-column w-50 mx-auto my-4 pb-4 v_register"
           >
             <input {...register("Full_Name")} value={user.displayName} />
             <input {...register("Email")} value={user.email} />
-            <input {...register("Date")} type="date" />
+            <input {...register("Date")} type="date" required />
 
-            <input {...register("Description")} placeholder="Description..." />
+            <input {...register("Description")} placeholder="Why you want to be a volunteer..." />
             <input
               {...register("service_Name")}
               value={singleService.workName}

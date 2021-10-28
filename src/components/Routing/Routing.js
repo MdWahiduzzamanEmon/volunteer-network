@@ -8,6 +8,8 @@ import VolunteerRegister from '../Form/VolunteerRegister/VolunteerRegister';
 import PrivateRoute from '../Private/PrivateRoute';
 import MyEvents from '../MyEvents/MyEvents'
 import Admin from '../Admin/Admin';
+import Blog from '../Blog/Blog';
+import Footer from '../Footer/Footer';
 const Routing = () => {
     return (
       <div>
@@ -26,6 +28,9 @@ const Routing = () => {
             <Route path="/register">
               <Register />
             </Route>
+            <Route path="/blog">
+              <Blog />
+            </Route>
             <PrivateRoute path="/service/:ServiceId">
               <VolunteerRegister />
             </PrivateRoute>
@@ -36,6 +41,7 @@ const Routing = () => {
               <Admin />
             </PrivateRoute>
           </Switch>
+          <Footer/>
         </Router>
       </div>
     );

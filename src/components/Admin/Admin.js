@@ -12,7 +12,7 @@ const Admin = () => {
         // console.log(e.target.innerText);
         setVolunteer(e.target.innerText);
     };
-
+console.log(volunteer);
     return (
       <div className="mt-5 pt-5">
         <div className="container">
@@ -22,14 +22,18 @@ const Admin = () => {
                 <li
                   onClick={handleVolunteerRegister}
                   style={{ cursor: "pointer", padding: "10px" }}
+                  className={
+                    volunteer === "Volunteer register list" && "selected"
+                  }
                 >
-                  Volunteer register list
+                  <i className="fas fa-users me-2 "></i>Volunteer register list
                 </li>
                 <li
                   onClick={handleAddEvent}
                   style={{ cursor: "pointer", padding: "10px" }}
+                  className={volunteer === "Add event" && "selected"}
                 >
-                  Add event
+                  <i className="fas fa-plus me-2"></i>Add event
                 </li>
               </ul>
             </div>
