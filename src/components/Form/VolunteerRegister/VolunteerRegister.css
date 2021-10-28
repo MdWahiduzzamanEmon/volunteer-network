@@ -18,8 +18,8 @@
 
 .eventaddForm input,textarea{
     padding: 10px;
-    width: 400px;
-    margin: 10px 0px;
+    width: 70%;
+    margin: 10px 5px;
 }
 .selected{
     color:rgb(12, 160, 160);
@@ -30,4 +30,30 @@
     object-fit: cover;
     border-top-right-radius:13px ;
     border-top-left-radius: 13px;
+}
+.login-width{
+    width:500px
+}
+.btn-width{
+    width: 60%;
+}
+.v_width{
+    width: 55%;
+}
+@media only screen and (max-width:768px){
+    .login-width{
+    width:100%;
+}
+.btn-width{
+    width: 70%;
+    font-size:13px
+}
+.v_width{
+    width: 90%;
+}
+.eventaddForm input,textarea{
+    padding: 10px;
+    width: 100%;
+    margin: 10px 5px;
+}
 }

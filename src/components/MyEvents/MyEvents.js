@@ -16,7 +16,7 @@ const MyEvents = () => {
           )
             .then((res) => res.json())
             .then((data) => {
-              console.log(data);
+              // console.log(data);
               setEvents(data);
               setIsSpinner(false);
             });
@@ -50,7 +50,7 @@ const MyEvents = () => {
             {" "}
             {isSpinner? <Spinner animation="grow" variant="danger" />:
             events.map((event) => (
-              <div className="d-flex border my-4 rounded-3 p-3 shadow justify-content-between align-items-center">
+              <div className="d-flex border my-4 rounded-3 p-3 shadow justify-content-between align-items-center" key={ event?._id}>
                 <div className="d-flex align-items-center">
                   <Card.Img
                     variant="top"

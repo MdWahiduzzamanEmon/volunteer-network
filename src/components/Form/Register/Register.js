@@ -25,16 +25,16 @@ const Register = () => {
    };
    return (
      <div>
-       <div className="container mt-5 pt-5">
+       <div className="container mt-5 py-5">
          <div>
            <img src={logo} alt="" className="img-fluid w-25" />
          </div>
-         <section className="border border-2 rounded mt-5 w-50 mx-auto">
+         <section className="border border-2 rounded mt-5 mx-auto login-width">
            <div className="py-3">
              <h3 className="fw-bold py-5">Register With</h3>
              <div>
                <button
-                 className="border w-50 mx-auto py-2 btn rounded-pill fw-bold position-relative"
+                 className="border btn-width mx-auto py-2 btn rounded-pill fw-bold position-relative"
                  onClick={redirectGoogle}
                >
                  <img

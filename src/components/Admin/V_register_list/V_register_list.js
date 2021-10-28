@@ -11,7 +11,7 @@ const V_register_list = () => {
         fetch("https://floating-plateau-03198.herokuapp.com/members")
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             setMembers(data);
             setIsSpinner(false);
           });
@@ -19,7 +19,7 @@ const V_register_list = () => {
 },[])
     const handleMemberDelete = (id) => {
       const singleMember = members.find((member) => member._id === id);
-      console.log(singleMember);
+      // console.log(singleMember);
       fetch(`https://floating-plateau-03198.herokuapp.com/eventDelete/${id}`, {
         method: "DELETE",
         headers: { "content-type": "application/json" },
@@ -35,42 +35,44 @@ const V_register_list = () => {
         });
     }
     return (
-      <div>
+      <div className="my-5">
         {isSpinner ? (
           <Spinner animation="grow" variant="danger" />
         ) : (
           <div>
             <h3 className="text-start pb-4">Volunteer register list-</h3>
 
-            <Table striped bordered hover className="text-start">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Registration Date</th>
-                  <th>Volunteer list</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {members?.map((member) => (
-                  <tr key={member?._id}>
-                    <td>{member?.Full_Name}</td>
-                    <td>{member?.Email}</td>
-                    <td>{member?.Date}</td>
-                    <td>{member?.service_Name}</td>
-                    <td className="  text-center">
-                      <button
-                        className=" btn text-danger"
-                        onClick={() => handleMemberDelete(member?._id)}
-                      >
-                        <i className="fas fa-trash"></i>
-                      </button>
-                    </td>
+            <div className="text-start">
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Registration Date</th>
+                    <th>Volunteer list</th>
+                    <th>Action</th>
                   </tr>
+                </thead>
+                {members.map((member) => (
+                  <tbody key={member?._id}>
+                    <tr>
+                      <td>{member?.Full_Name}</td>
+                      <td>{member?.Email}</td>
+                      <td>{member?.Date}</td>
+                      <td>{member?.service_Name}</td>
+                      <td>
+                        <button
+                          className="btn text-danger"
+                          onClick={() => handleMemberDelete(member?._id)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
                 ))}
-              </tbody>
-            </Table>
+              </Table>
+            </div>
           </div>
         )}
       </div>

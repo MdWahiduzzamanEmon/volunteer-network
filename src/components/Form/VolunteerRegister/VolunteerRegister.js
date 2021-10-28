@@ -50,21 +50,25 @@ const VolunteerRegister = () => {
         <div>
           <img src={logo} alt="" className="img-fluid w-25" />
         </div>
-        <div className="w-50 border border-3 mx-auto mt-5">
+        <div className=" v_width border border-3 mx-auto mt-5">
           <h4 className="fw-bold pt-4">Register as a Volunteer</h4>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="d-flex flex-column w-50 mx-auto my-4 pb-4 v_register"
+            className="d-flex flex-column w-75 mx-auto my-4 pb-4 v_register"
           >
-            <input {...register("Full_Name")} value={user.displayName} />
-            <input {...register("Email")} value={user.email} />
-            <input {...register("Date")} type="date" required />
-
-            <input {...register("Description")} placeholder="Why you want to be a volunteer..." />
+            <input {...register("Full_Name")} value={user.displayName || ""} />
+            <input {...register("Email")} value={user.email || ""} />
             <input
               {...register("service_Name")}
-              value={singleService.workName}
+              value={singleService.workName || ""}
             />
+            <input {...register("Date")} type="date" required />
+
+            <input
+              {...register("Description")}
+              placeholder="Why you want to be a volunteer..."
+            />
+
             <button className="btn btn-danger my-4">Register</button>
           </form>
         </div>

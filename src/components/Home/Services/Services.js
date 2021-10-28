@@ -56,7 +56,7 @@ const Services = () => {
             <h2 className="fw-bold text-uppercase">
               I grow by helping people in need.
             </h2>
-            <InputGroup className="mb-3 w-50 py-4 mx-auto">
+            <InputGroup className="mb-3 w-75 py-4 mx-auto">
               <FormControl
                 placeholder="Search...."
                 aria-label="Recipient's username"
@@ -83,7 +83,7 @@ const Services = () => {
             {isSpinner ? (
               <Spinner animation="grow" variant="danger" />
             ) : (
-              <Row xs={1} md={3} lg={4} className="g-4 py-5">
+                <Row xs={1} md={2} lg={3} xl={ 4} className="g-4 py-5">
                 {searchValue?.map((service) => (
                   <Service key={service._id} service={service}></Service>
                 ))}
