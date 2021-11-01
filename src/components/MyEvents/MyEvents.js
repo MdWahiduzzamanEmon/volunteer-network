@@ -14,19 +14,21 @@ const MyEvents = () => {
   React.useEffect(() => {
     setIsSpinner(true);
     setTimeout(() => {
-      fetch(`http://localhost:5000/events/${user.email}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("idToken")}`,
-        },
-      })
+      fetch(
+        `https://floating-plateau-03198.herokuapp.com/events/${user.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("idToken")}`,
+          },
+        }
+      )
         .then((res) => {
           if (res.status === 200) {
             return res.json();
-            
           } else if (res.status === 401) {
-            history.push('/login')
+            history.push("/login");
           }
-        } )
+        })
         .then((data) => {
           // console.log(data);
           setEvents(data);
