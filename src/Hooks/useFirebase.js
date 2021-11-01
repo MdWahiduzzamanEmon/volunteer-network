@@ -5,9 +5,9 @@ import {
   getAuth,
   signInWithPopup,
   onAuthStateChanged,
+  getIdToken,
   signOut,
 } from "firebase/auth";
-import { toast} from "react-toastify"
 initializeFirebase()
 
 const provider = new GoogleAuthProvider();
@@ -29,6 +29,10 @@ const useFirebase = () => {
        setLoading(true)
        const unsubscribe = onAuthStateChanged(auth, (user) => {
          if (user) {
+           getIdToken(user).then((idToken) => {
+             console.log(idToken);
+             localStorage.setItem("idToken", idToken);
+           });
            setUser(user);
          } else {
            setUser({});
