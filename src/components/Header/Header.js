@@ -5,7 +5,7 @@ import useAuth from '../../Hooks/useAuth';
 import logo from '../../logos/Group 1329.png'
 const Header = () => {
   const { user, logout } = useAuth();
-  const admin = "wahedemon09@gmail.com";
+  // const admin = "wahedemon09@gmail.com";
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" fixed="top" className="bg-light">
@@ -74,11 +74,18 @@ const Header = () => {
                     <i className="fas fs-5 fa-sign-out-alt"></i>
                   </button>
                 )}
-                {user.email === admin && (
+                {user.uid && (
                   <Nav.Link as={Link} to="/admin">
                     <button className="btn btn-secondary fw-bold">Admin</button>
                   </Nav.Link>
                 )}
+                {/* //only admin check  */}
+                
+                {/* {user.email === admin && (
+                  <Nav.Link as={Link} to="/admin">
+                    <button className="btn btn-secondary fw-bold">Admin</button>
+                  </Nav.Link>
+                )} */}
               </Nav>
             </Navbar.Collapse>
           </Container>
