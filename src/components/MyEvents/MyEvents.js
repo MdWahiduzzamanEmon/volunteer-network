@@ -73,33 +73,43 @@ const MyEvents = () => {
     
     return (
       <div className="mt-5 pt-5">
-        <div className="container">
-          <>
-            {" "}
-            {isSpinner? <Spinner animation="grow" variant="danger" />:
-            events.map((event) => (
-              <div className="d-flex border my-4 rounded-3 p-3 shadow justify-content-between align-items-center" key={ event?._id}>
-                <div className="d-flex align-items-center">
-                  <Card.Img
-                    variant="top"
-                    src={event.img}
-                    className="w-25 me-5"
-                  />
-                  <div className="text-start">
-                    <h5>{event.service_Name}</h5>
-                    <p>{event.Date}</p>
+        {events.length === 0 ? (
+          <h4 className="my-5 py-5 fw-bold">No events available!!</h4>
+        ) : (
+          <div className="container">
+            <>
+              {" "}
+              {isSpinner ? (
+                <Spinner animation="grow" variant="danger" />
+              ) : (
+                events.map((event) => (
+                  <div
+                    className="d-flex border my-4 rounded-3 p-3 shadow justify-content-between align-items-center"
+                    key={event?._id}
+                  >
+                    <div className="d-flex align-items-center">
+                      <Card.Img
+                        variant="top"
+                        src={event.img}
+                        className="w-25 me-5"
+                      />
+                      <div className="text-start">
+                        <h5>{event.service_Name}</h5>
+                        <p>{event.Date}</p>
+                      </div>
+                    </div>
+                    <button
+                      className="text-end btn btn-danger"
+                      onClick={() => handleEventCancel(event._id)}
+                    >
+                      Cancel
+                    </button>
                   </div>
-                </div>
-                <button
-                  className="text-end btn btn-danger"
-                  onClick={() => handleEventCancel(event._id)}
-                >
-                  Cancel
-                </button>
-              </div>
-            ))}
-          </>
-        </div>
+                ))
+              )}
+            </>
+          </div>
+        )}
       </div>
     );
 };
